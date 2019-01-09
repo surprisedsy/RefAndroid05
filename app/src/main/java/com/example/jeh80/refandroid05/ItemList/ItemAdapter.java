@@ -2,6 +2,7 @@ package com.example.jeh80.refandroid05.ItemList;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +52,7 @@ public class ItemAdapter extends BaseAdapter {
         if(layoutInflater == null)
             layoutInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if(convertView == null)
-            convertView = layoutInflater.inflate(R.layout.fragment_tab1, null);
+            convertView = layoutInflater.inflate(R.layout.fragment_tab1, parent, false);
 //        if(imageLoader != null)
 //        {
 //            imageLoader = AppController.getAppInstance().getImageLoader();

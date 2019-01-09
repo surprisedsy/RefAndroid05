@@ -34,8 +34,8 @@ import java.util.List;
 
 public class ItemListActivity extends AppCompatActivity {
 
-    private static final String url = "https://api.myjson.com/bins/mi994";
-    //private static final String url = "http://192.168.1.124:7777/refrigerator/db_list";
+    //private static final String url = "https://api.myjson.com/bins/mi994";
+    private static final String url = "http://192.168.1.124:7777/refrigerator/db_list";
 
     private ViewPager viewPager;
     private TabLayout tabLayout;
@@ -46,6 +46,9 @@ public class ItemListActivity extends AppCompatActivity {
     private ListView listView;
     private RequestQueue requestQueue;
 
+    public String name, date;
+    public int amount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,16 +58,18 @@ public class ItemListActivity extends AppCompatActivity {
 
         Init();
         itemListParse();
+        passingDataToFragment();
         bottomBarClicked();
+
     }
 
     private void Init()
     {
         requestQueue = Volley.newRequestQueue(this);
 
-        listView = (ListView) findViewById(R.id.itemlistview);
-        itemAdapter = new ItemAdapter(this, itemInfoList);
-        listView.setAdapter(itemAdapter);
+//        listView = (ListView) findViewById(R.id.itemlistview);
+//        itemAdapter = new ItemAdapter(this, itemInfoList);
+//        listView.setAdapter(itemAdapter);
     }
 
     private void itemListParse()
@@ -83,23 +88,14 @@ public class ItemListActivity extends AppCompatActivity {
 
                                 ItemInfo itemInfo = new ItemInfo();
 
-                                String name = item.getString("name");
-                                int amount = item.getInt("amount");
-                                String date = item.getString("edate");
+                                name = item.getString("name");
+                                amount = item.getInt("amount");
+                                date = item.getString("edate");
 
-//                                FragmentItemTab1 tab1 = new FragmentItemTab1();
-//                                Bundle bundle = new Bundle();
+//                                Log.d("bbbbbb", "activity: " + name);
+//                                Log.d("bbbbbb", "activity: " + amount);
+//                                Log.d("bbbbbb", "activity: " + date);
 //
-//                                bundle.putString("name", name);
-//                                bundle.putInt("amount", amount);
-//                                bundle.putString("edate", date);
-//
-//                                tab1.setArguments(bundle);
-
-                                Log.d("bbbbbb", "activity: " + name);
-                                Log.d("bbbbbb", "activity: " + amount);
-                                Log.d("bbbbbb", "activity: " + date);
-
 //                                itemInfo.setName(name);
 //                                itemInfo.setAmount(amount);
 //                                itemInfo.setDate(date);
@@ -110,7 +106,7 @@ public class ItemListActivity extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        itemAdapter.notifyDataSetChanged();
+//                        itemAdapter.notifyDataSetChanged();
 
                     }
                 }, new Response.ErrorListener() {
@@ -121,6 +117,23 @@ public class ItemListActivity extends AppCompatActivity {
         });
 
         requestQueue.add(jsonObjectRequest);
+    }
+
+    private void passingDataToFragment()
+    {
+        FragmentManager fm = getSupportFragmentManager();
+
+        Bundle bundle = new Bundle();
+        bundle.putString("1", "test");
+        bundle.putString("2", "111");
+        bundle.putInt("3", 123);
+
+        FragmentItemTab1 itemTab1 = new FragmentItemTab1();
+        itemTab1.setArguments(bundle);
+
+        android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
+        ft.add(R.id.bottomframe, itemTab1);
+        ft.commit();
     }
 
     private void bottomBarClicked()
