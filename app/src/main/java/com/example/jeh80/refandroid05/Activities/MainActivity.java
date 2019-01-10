@@ -2,96 +2,123 @@ package com.example.jeh80.refandroid05.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.example.jeh80.refandroid05.AppController;
 import com.example.jeh80.refandroid05.R;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.GoogleAuthProvider;
+import com.example.jeh80.refandroid05.User.SharedPrefManager;
+import com.example.jeh80.refandroid05.User.UserInfo;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int RC_SIGN_IN = 100;
+    private static final String url = "http://192.168.1.124:7777/refrigerator/member";
 
-    private GoogleSignInClient googleSignInClient;
-    private SignInButton signInButton;
-    private FirebaseAuth firebaseAuth;
+    EditText username, pass;
+    Button loginbutton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setGoogleSignInClient();
-    }
+        username = (EditText) findViewById(R.id.username);
+        pass = (EditText) findViewById(R.id.pass);
+        loginbutton = (Button) findViewById(R.id.loginbutton);
 
-    private void setGoogleSignInClient()
-    {
-        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
-        firebaseAuth = FirebaseAuth.getInstance();
-
-        signInButton = (SignInButton) findViewById(R.id.signIButton);
-        signInButton.setOnClickListener(new View.OnClickListener() {
+        loginbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent signIntent = googleSignInClient.getSignInIntent();
-                startActivityForResult(signIntent, RC_SIGN_IN);
+                userlogin();
+                Log.d("cccccc", "id: " + username.getText().toString() + "\n" + "pass: " + pass.getText().toString() );
             }
         });
-
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == RC_SIGN_IN)
-        {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-
-            try {
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                firebaseAuthWithGoogle(account);
-            } catch (ApiException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void firebaseAuthWithGoogle(final GoogleSignInAccount acct)
+    private void userlogin()
     {
-        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-        firebaseAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        final String id = username.getText().toString();
+        final String pw = pass.getText().toString();
+
+        if(TextUtils.isEmpty(id))
+        {
+            username.setError("Please enter your Id");
+            username.requestFocus();
+            return;
+        }
+        if(TextUtils.isEmpty(pw))
+        {
+            pass.setError("Please enter your Password");
+            pass.requestFocus();
+            return;
+        }
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful())
-                        {
-                            Toast.makeText(MainActivity.this, "Login Successed", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(MainActivity.this, RefListActivity.class);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
+                    public void onResponse(String response) {
+
+                        Toast.makeText(MainActivity.this, "login success", Toast.LENGTH_SHORT).show();
+
+                        try {
+                            JSONObject obj = new JSONObject(response);
+
+                            if(!obj.getBoolean("error"))
+                            {
+                                //JSONObject userJson = obj.getJSONObject("user");
+
+                                UserInfo user = new UserInfo(
+                                        obj.getString("ID"),
+                                        obj.getString("pass")
+                                );
+
+                                SharedPrefManager.getmInstance(getApplicationContext()).userLogin(user);
+
+                                finish();
+                                startActivity(new Intent(getApplicationContext(), RefListActivity.class));
+
+                            } else {
+                                Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT).show();
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
                     }
-                });
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("ID", id);
+                params.put("pass", pw);
+
+                return params;
+            }
+        };
+
+        AppController.getAppInstance().addToRequestQueue(stringRequest);
     }
+
 }

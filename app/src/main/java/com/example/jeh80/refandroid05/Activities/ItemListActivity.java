@@ -9,7 +9,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ListView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -19,8 +18,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.jeh80.refandroid05.ItemList.FragmentItemTab1;
 import com.example.jeh80.refandroid05.ItemList.FragmentItemTab2;
-import com.example.jeh80.refandroid05.ItemList.ItemAdapter;
-import com.example.jeh80.refandroid05.ItemList.ItemInfo;
 import com.example.jeh80.refandroid05.R;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
@@ -29,21 +26,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ItemListActivity extends AppCompatActivity {
 
-    //private static final String url = "https://api.myjson.com/bins/mi994";
-    private static final String url = "http://192.168.1.124:7777/refrigerator/db_list";
+    private static final String url = "https://api.myjson.com/bins/mi994";
+    //private static final String url = "http://192.168.1.124:7777/refrigerator/db_list";
 
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private BottomBar bottomBar;
 
-    private List<ItemInfo> itemInfoList = new ArrayList<ItemInfo>();
-    private ItemAdapter itemAdapter;
-    private ListView listView;
     private RequestQueue requestQueue;
 
     public String name, date;
@@ -58,7 +49,7 @@ public class ItemListActivity extends AppCompatActivity {
 
         Init();
         itemListParse();
-        passingDataToFragment();
+        //passingDataToFragment();
         bottomBarClicked();
 
     }
@@ -66,10 +57,6 @@ public class ItemListActivity extends AppCompatActivity {
     private void Init()
     {
         requestQueue = Volley.newRequestQueue(this);
-
-//        listView = (ListView) findViewById(R.id.itemlistview);
-//        itemAdapter = new ItemAdapter(this, itemInfoList);
-//        listView.setAdapter(itemAdapter);
     }
 
     private void itemListParse()
@@ -86,27 +73,27 @@ public class ItemListActivity extends AppCompatActivity {
                             {
                                 JSONObject item = jsonArray.getJSONObject(i);
 
-                                ItemInfo itemInfo = new ItemInfo();
-
                                 name = item.getString("name");
                                 amount = item.getInt("amount");
                                 date = item.getString("edate");
 
-//                                Log.d("bbbbbb", "activity: " + name);
-//                                Log.d("bbbbbb", "activity: " + amount);
-//                                Log.d("bbbbbb", "activity: " + date);
-//
-//                                itemInfo.setName(name);
-//                                itemInfo.setAmount(amount);
-//                                itemInfo.setDate(date);
-//
-//                                itemInfoList.add(itemInfo);
+                                FragmentManager fm = getSupportFragmentManager();
+                                FragmentItemTab1 itemTab1 = new FragmentItemTab1();
+                                android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
+                                ft.replace(R.id.bottomframe, itemTab1);
+                                ft.commit();
+
+                                Bundle bundle = new Bundle();
+                                bundle.putString("1", name);
+                                bundle.putString("2", date);
+                                bundle.putInt("3", amount);
+
+                                itemTab1.setArguments(bundle);
                             }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-//                        itemAdapter.notifyDataSetChanged();
 
                     }
                 }, new Response.ErrorListener() {
@@ -122,18 +109,17 @@ public class ItemListActivity extends AppCompatActivity {
     private void passingDataToFragment()
     {
         FragmentManager fm = getSupportFragmentManager();
+        FragmentItemTab1 itemTab1 = new FragmentItemTab1();
+        android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
+        ft.add(R.id.bottomframe, itemTab1);
+        ft.commit();
 
         Bundle bundle = new Bundle();
         bundle.putString("1", "test");
         bundle.putString("2", "111");
         bundle.putInt("3", 123);
 
-        FragmentItemTab1 itemTab1 = new FragmentItemTab1();
         itemTab1.setArguments(bundle);
-
-        android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
-        ft.add(R.id.bottomframe, itemTab1);
-        ft.commit();
     }
 
     private void bottomBarClicked()
