@@ -29,14 +29,13 @@
         android:layout_marginEnd="12dp"
         android:src="@mipmap/temp_512x512" />
 
-
     <TextView
         android:id="@+id/tempTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/tempImg"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="112dp"
+        android:layout_marginStart="97dp"
         android:layout_marginTop="322dp"
         android:textAlignment="center"
         android:textColor="#000"

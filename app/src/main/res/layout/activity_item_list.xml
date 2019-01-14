@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/itemlistlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_above="@id/bottomframe">
@@ -11,7 +12,7 @@
         android:layout_height="wrap_content"
         app:tabIndicatorColor="#f00"/>
 
-    <FrameLayout
+    <RelativeLayout
         android:id="@+id/bottomframe"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-    </FrameLayout>
+    </RelativeLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"

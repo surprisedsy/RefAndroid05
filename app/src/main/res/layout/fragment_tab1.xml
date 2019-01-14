@@ -24,14 +24,16 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:layout_weight="2"
-            android:textSize="24dp"/>
+            android:textSize="24dp"
+            android:text="1212"/>
 
         <TextView
             android:id="@+id/dateTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="18dp"/>
+            android:textSize="18dp"
+            android:text="1313"/>
 
     </LinearLayout>
 
@@ -42,6 +44,7 @@
         android:layout_weight="1"
         android:layout_marginTop="27dp"
         android:textAlignment="center"
-        android:textSize="18dp"/>
+        android:textSize="18dp"
+        android:text="1414"/>
 
 </LinearLayout>

@@ -26,8 +26,8 @@ import java.util.List;
 
 public class RefListActivity extends AppCompatActivity {
 
-    private static final String url = "https://api.myjson.com/bins/lwtnc";
-    //private static final String url = "http://192.168.1.124:7777/refrigerator/product_num";
+    private static final String url = "https://api.myjson.com/bins/uebc0";
+    //private static final String url = "http://192.168.1.124:7777/refrigerator/member";
 
     private RequestQueue requestQueue;
 
@@ -63,7 +63,7 @@ public class RefListActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
 
                         try {
-                            JSONArray jsonArray = response.getJSONArray("product");
+                            JSONArray jsonArray = response.getJSONArray("reflist");
 
                             for(int i = 0; i < jsonArray.length(); i++)
                             {
@@ -71,10 +71,11 @@ public class RefListActivity extends AppCompatActivity {
 
                                 RefInfo refInfo = new RefInfo();
 
-                                //String refname = ref.getString("Family_refrigerator");
-                                String refserial = ref.getString("Family_refrigerator");
+                                String ref_Name = ref.getString("ref_name");
+                                String ref_Serial = ref.getString("ref_num");
 
-                                refInfo.setNo(refserial);
+                                refInfo.setName(ref_Name);
+                                refInfo.setNo(ref_Serial);
 
                                 refInfoList.add(refInfo);
                             }
