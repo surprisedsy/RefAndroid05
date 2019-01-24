@@ -22,7 +22,8 @@ import org.json.JSONObject;
 
 public class PhotoActivity extends AppCompatActivity {
 
-    private static final String url = "http://192.168.1.124:7777/refrigerator/Android_pic";
+//    private static final String url = "http://192.168.1.124:7777/refrigerator/Android_img";
+    private static final String url = "http://192.168.1.31:7777/refrigerator/Android_img";
 
     private NetworkImageView imageView;
     private RequestQueue requestQueue;

@@ -10,9 +10,10 @@
         android:id="@+id/tablayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:tabGravity="fill"
         app:tabIndicatorColor="#f00"/>
 
-    <RelativeLayout
+    <FrameLayout
         android:id="@+id/bottomframe"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,12 +22,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="0dp" >
 
-        <ListView
-            android:id="@+id/itemlistview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-    </RelativeLayout>
+    </FrameLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"

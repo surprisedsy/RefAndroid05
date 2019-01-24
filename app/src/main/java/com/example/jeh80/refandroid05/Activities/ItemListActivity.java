@@ -8,51 +8,18 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.ListView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.jeh80.refandroid05.ItemList.FragmentItemTab1;
 import com.example.jeh80.refandroid05.ItemList.FragmentItemTab2;
-import com.example.jeh80.refandroid05.ItemList.ItemAdapter;
-import com.example.jeh80.refandroid05.ItemList.ItemArrayAdapter;
-import com.example.jeh80.refandroid05.ItemList.ItemInfo;
 import com.example.jeh80.refandroid05.R;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class ItemListActivity extends AppCompatActivity {
-
-    private static final String TAB1_url = "https://api.myjson.com/bins/mi994";
-    private static final String TAB2_url = "https://api.myjson.com/bins/127s1s";
-    //private static final String url = "http://192.168.1.124:7777/refrigerator/Android_list";
 
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private BottomBar bottomBar;
-    private ListView listView;
-
-    private List<ItemInfo> itemInfoList = new ArrayList<ItemInfo>();
-    private ArrayList<ItemInfo> itemInfoArrayList = new ArrayList<ItemInfo>();
-    private ItemAdapter itemAdapter;
-    private ItemArrayAdapter itemArrayAdapter;
-
-    private RequestQueue requestQueue;
-
-    public String name, date;
-    public int amount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,143 +27,9 @@ public class ItemListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_item_list);
 
         itemListView();
-
-        Init();
-        edateItemsListParse();
-        ldateItemsListParse();
-        //passingDataToFragment();
         bottomBarClicked();
 
     }
-
-    private void Init()
-    {
-        requestQueue = Volley.newRequestQueue(this);
-
-        listView = (ListView) findViewById(R.id.itemlistview);
-        itemAdapter = new ItemAdapter(this, itemInfoList);
-        listView.setAdapter(itemAdapter);
-//        itemArrayAdapter = new ItemArrayAdapter(this, R.layout.fragment_tab1, itemInfoArrayList);
-//        listView.setAdapter(itemArrayAdapter);
-    }
-
-    private void edateItemsListParse()
-    {
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, TAB1_url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                        try {
-                            JSONArray jsonArray = response.getJSONArray("list");
-
-                            for(int i = 0; i < jsonArray.length(); i++)
-                            {
-                                JSONObject item = jsonArray.getJSONObject(i);
-
-                                ItemInfo itemInfo = new ItemInfo();
-
-                                name = item.getString("name");
-                                amount = item.getInt("amount");
-                                date = item.getString("edate");
-
-//                                itemInfo.setName(name);
-//                                itemInfo.setDate(date);
-//                                itemInfo.setAmount(amount);
-//
-//                                itemInfoList.add(itemInfo);
-
-                                FragmentManager fm = getSupportFragmentManager();
-                                FragmentItemTab1 itemTab1 = new FragmentItemTab1();
-                                android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
-                                ft.add(R.id.bottomframe, itemTab1);
-                                ft.commit();
-
-                                Bundle bundle = new Bundle();
-
-                                bundle.putString("name", name);
-                                bundle.putString("edate", date);
-                                bundle.putInt("amount", amount);
-
-                                itemTab1.setArguments(bundle);
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                        itemAdapter.notifyDataSetChanged();
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        });
-
-        requestQueue.add(jsonObjectRequest);
-    }
-
-    private void ldateItemsListParse() {
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, TAB2_url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                        try {
-                            JSONArray jsonArray = response.getJSONArray("list");
-
-                            for(int i = 0; i < jsonArray.length(); i++)
-                            {
-                                JSONObject item = jsonArray.getJSONObject(i);
-
-                                ItemInfo itemInfo = new ItemInfo();
-
-                                name = item.getString("name");
-                                amount = item.getInt("amount");
-                                int date = item.getInt("ldate");
-
-//                                itemInfo.setName(name);
-//                                itemInfo.setDate(date);
-//                                itemInfo.setAmount(amount);
-//
-//                                itemInfoList.add(itemInfo);
-
-                                FragmentManager fm = getSupportFragmentManager();
-                                FragmentItemTab2 itemTab2 = new FragmentItemTab2();
-                                android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
-                                ft.add(R.id.bottomframe, itemTab2);
-                                ft.commit();
-
-                                Bundle bundle = new Bundle();
-
-                                bundle.putString("name", name);
-                                bundle.putInt("ldate", date);
-                                bundle.putInt("amount", amount);
-
-                                itemTab2.setArguments(bundle);
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                        itemAdapter.notifyDataSetChanged();
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        });
-
-        requestQueue.add(jsonObjectRequest);
-
-    }
-
 
     private void bottomBarClicked()
     {
@@ -232,7 +65,7 @@ public class ItemListActivity extends AppCompatActivity {
     {
         viewInit();
 
-        tabLayout.addTab(tabLayout.newTab().setText("유통기한"));
+        tabLayout.addTab(tabLayout.newTab().setText("재고"));
         tabLayout.addTab(tabLayout.newTab().setText("경과일"));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
 
@@ -266,4 +99,5 @@ public class ItemListActivity extends AppCompatActivity {
             return COUNT;
         }
     }
+
 }

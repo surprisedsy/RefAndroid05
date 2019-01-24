@@ -20,7 +20,8 @@ import org.json.JSONObject;
 
 public class TempActivity extends AppCompatActivity {
 
-    private static final String url = "http://192.168.1.124:7777/refrigerator/Android_tem";
+//    private static final String url = "http://192.168.1.124:7777/refrigerator/Android_tem";
+    private static final String url = "http://192.168.1.31:7777/refrigerator/Android_tem";
 
     private TextView tempResult;
     private RequestQueue requestQueue;

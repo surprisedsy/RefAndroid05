@@ -1,9 +1,10 @@
 package com.example.jeh80.refandroid05.ItemList;
 
+import com.android.volley.toolbox.NetworkImageView;
+
 public class ItemInfo {
 
-    String name, date, img;
-    int amount;
+    String name, date, img, amount;
 
     public String getName() {
         return name;
@@ -13,11 +14,11 @@ public class ItemInfo {
         this.name = name;
     }
 
-    public int getAmount() {
+    public String getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
     }
 

@@ -4,6 +4,14 @@ public class RefInfo {
 
     String name, no;
 
+    public RefInfo() {}
+
+    public RefInfo(String name, String no)
+    {
+        this.name = name;
+        this.no = no;
+    }
+
     public String getName() {
         return name;
     }
