@@ -11,6 +11,7 @@ import android.os.Bundle;
 
 import com.example.jeh80.refandroid05.ItemList.FragmentItemTab1;
 import com.example.jeh80.refandroid05.ItemList.FragmentItemTab2;
+import com.example.jeh80.refandroid05.ItemList.FragmentItemTab3;
 import com.example.jeh80.refandroid05.R;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
@@ -28,13 +29,12 @@ public class ItemListActivity extends AppCompatActivity {
 
         itemListView();
         bottomBarClicked();
-
     }
 
     private void bottomBarClicked()
     {
         bottomBar = (BottomBar) findViewById(R.id.bottombar);
-        bottomBar.setDefaultTabPosition(0);
+        bottomBar.setDefaultTabPosition(1);
 
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
@@ -48,6 +48,12 @@ public class ItemListActivity extends AppCompatActivity {
                 if(tabId == R.id.btm_photo)
                 {
                     Intent photoIntent = new Intent(ItemListActivity.this, PhotoActivity.class);
+                    startActivity(photoIntent);
+                    finish();
+                }
+                if(tabId == R.id.btm_recipe)
+                {
+                    Intent photoIntent = new Intent(ItemListActivity.this, RecipeActivity.class);
                     startActivity(photoIntent);
                     finish();
                 }
@@ -67,6 +73,7 @@ public class ItemListActivity extends AppCompatActivity {
 
         tabLayout.addTab(tabLayout.newTab().setText("재고"));
         tabLayout.addTab(tabLayout.newTab().setText("경과일"));
+        tabLayout.addTab(tabLayout.newTab().setText("유통기한"));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -76,7 +83,7 @@ public class ItemListActivity extends AppCompatActivity {
 
     public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
-        private static final int COUNT = 2;
+        private static final int COUNT = 3;
 
         public ViewPagerAdapter(FragmentManager manager)
         {
@@ -89,6 +96,8 @@ public class ItemListActivity extends AppCompatActivity {
             {
                 case 1:
                     return new FragmentItemTab2();
+                case 2:
+                    return new FragmentItemTab3();
                 default:
                     return new FragmentItemTab1();
             }

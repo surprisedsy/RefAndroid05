@@ -93,6 +93,12 @@ public class PhotoActivity extends AppCompatActivity {
                     startActivity(itemIntent);
                     finish();
                 }
+                if(tabId == R.id.btm_recipe)
+                {
+                    Intent photoIntent = new Intent(PhotoActivity.this, RecipeActivity.class);
+                    startActivity(photoIntent);
+                    finish();
+                }
             }
         });
     }

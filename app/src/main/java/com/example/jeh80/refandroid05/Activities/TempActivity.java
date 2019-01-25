@@ -26,8 +26,7 @@ public class TempActivity extends AppCompatActivity {
     private TextView tempResult;
     private RequestQueue requestQueue;
 
-    private Button btn1;
-    private Button btn2;
+    private Button btn1, btn2, btn3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +45,7 @@ public class TempActivity extends AppCompatActivity {
 
         btn1 = (Button) findViewById(R.id.btn_itemlist);
         btn2 = (Button) findViewById(R.id.btn_photo);
+        btn3 = (Button) findViewById(R.id.btn_recipe);
     }
 
     private void tempJsonParse()
@@ -89,6 +89,14 @@ public class TempActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent photoIntent = new Intent(TempActivity.this, PhotoActivity.class);
                 startActivity(photoIntent);
+            }
+        });
+
+        btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent recipeIntent = new Intent(TempActivity.this, RecipeActivity.class);
+                startActivity(recipeIntent);
             }
         });
     }

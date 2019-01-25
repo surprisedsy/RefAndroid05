@@ -2,16 +2,20 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <tabs>
         <tab
-            id="@+id/btm_itemlist"
-            icon="@mipmap/icon_list_72x72"
-            title="재고확인" />
-        <tab
             id="@+id/btm_home"
             icon="@mipmap/icon_home_72x72"
             title="홈" />
         <tab
+            id="@+id/btm_itemlist"
+            icon="@mipmap/icon_list_72x72"
+            title="재고" />
+        <tab
             id="@+id/btm_photo"
             icon="@mipmap/icon_photo_72x72"
             title="사진" />
+        <tab
+            id="@+id/btm_recipe"
+            icon="@mipmap/icon_recipe_72x72"
+            title="레시피" />
     </tabs>
 </PreferenceScreen>

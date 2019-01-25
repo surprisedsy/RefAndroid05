@@ -54,12 +54,12 @@ public class FragmentItemTab1 extends Fragment {
         itemAdapter = new ItemAdapter(getActivity(), itemInfoList);
         listView.setAdapter(itemAdapter);
 
-        edateItemsListParse();
+        allItemsListParse();
 
         return view;
     }
 
-    private void edateItemsListParse() {
+    private void allItemsListParse() {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, TAB1_url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
