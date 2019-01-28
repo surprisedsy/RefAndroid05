@@ -15,30 +15,29 @@ import com.example.jeh80.refandroid05.R;
 
 import java.util.List;
 
-public class ItemAdapter extends BaseAdapter {
+public class ItemTab3Adapter extends BaseAdapter {
 
     private Activity activity;
 
-    private List<ItemInfo> itemInfos;
+    private List<ItemInfo> iteminfos;
     private LayoutInflater layoutInflater;
 
     private ImageLoader imageLoader = AppController.getAppInstance().getImageLoader();
-    private TextView name, date, amount;
+    private TextView name, date, amount, edate;
 
-    public ItemAdapter(Activity activity, List<ItemInfo> itemInfos)
-    {
+    public ItemTab3Adapter(Activity activity, List<ItemInfo> itemInfos) {
         this.activity = activity;
-        this.itemInfos = itemInfos;
+        this.iteminfos = itemInfos;
     }
 
     @Override
     public int getCount() {
-        return itemInfos.size();
+        return iteminfos.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return itemInfos.get(position);
+        return iteminfos.get(position);
     }
 
     @Override
@@ -49,28 +48,29 @@ public class ItemAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        if(layoutInflater == null)
+        if (layoutInflater == null)
             layoutInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        if(convertView == null)
-            convertView = layoutInflater.inflate(R.layout.fragment_tab1, null);
-        if(imageLoader != null)
-        {
+        if (convertView == null)
+            convertView = layoutInflater.inflate(R.layout.fragment_tab3, null);
+        if (imageLoader != null) {
             imageLoader = AppController.getAppInstance().getImageLoader();
 
-            NetworkImageView imageView = (NetworkImageView) convertView.findViewById(R.id.itemimage);
-            name = (TextView) convertView.findViewById(R.id.nameTxt);
-            date = (TextView) convertView.findViewById(R.id.dateTxt);
-            amount = (TextView) convertView.findViewById(R.id.amountTxt);
+            NetworkImageView imageView = (NetworkImageView) convertView.findViewById(R.id.tab3itemimage);
+            name = (TextView) convertView.findViewById(R.id.nameTxt3);
+            date = (TextView) convertView.findViewById(R.id.dateTxt3);
+            amount = (TextView) convertView.findViewById(R.id.amountTxt3);
+            edate = (TextView) convertView.findViewById(R.id.edateTxt);
 
-            ItemInfo itemInfo = itemInfos.get(position);
+            ItemInfo itemInfo = iteminfos.get(position);
 
             imageView.setImageUrl(itemInfo.getImg(), imageLoader);
             name.setText(itemInfo.getName());
             date.setText(itemInfo.getDate());
             amount.setText(String.valueOf(itemInfo.getAmount()));
+            edate.setText(itemInfo.getEdate());
+
         }
 
         return convertView;
     }
-
 }
