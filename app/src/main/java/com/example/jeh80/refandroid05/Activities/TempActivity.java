@@ -81,6 +81,7 @@ public class TempActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent itemIntent = new Intent(TempActivity.this, ItemListActivity.class);
                 startActivity(itemIntent);
+                finish();
             }
         });
 
@@ -89,6 +90,7 @@ public class TempActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent photoIntent = new Intent(TempActivity.this, PhotoActivity.class);
                 startActivity(photoIntent);
+                finish();
             }
         });
 
@@ -97,6 +99,7 @@ public class TempActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent recipeIntent = new Intent(TempActivity.this, RecipeActivity.class);
                 startActivity(recipeIntent);
+                finish();
             }
         });
     }

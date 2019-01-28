@@ -5,6 +5,7 @@ import com.android.volley.toolbox.NetworkImageView;
 public class ItemInfo {
 
     String name, date, img, amount;
+    String edate;
 
     public String getName() {
         return name;
@@ -36,5 +37,13 @@ public class ItemInfo {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public String getEdate() {
+        return edate;
+    }
+
+    public void setEdate(String edate) {
+        this.edate = edate;
     }
 }

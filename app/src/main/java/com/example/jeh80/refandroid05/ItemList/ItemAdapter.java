@@ -24,6 +24,7 @@ public class ItemAdapter extends BaseAdapter {
 
     private ImageLoader imageLoader = AppController.getAppInstance().getImageLoader();
     private TextView name, date, amount;
+    private TextView edate;
 
     public ItemAdapter(Activity activity, List<ItemInfo> itemInfos)
     {
@@ -61,6 +62,7 @@ public class ItemAdapter extends BaseAdapter {
             name = (TextView) convertView.findViewById(R.id.nameTxt);
             date = (TextView) convertView.findViewById(R.id.dateTxt);
             amount = (TextView) convertView.findViewById(R.id.amountTxt);
+//            edate = (TextView) convertView.findViewById(R.id.edateTxt);
 
             ItemInfo itemInfo = itemInfos.get(position);
 
@@ -68,6 +70,7 @@ public class ItemAdapter extends BaseAdapter {
             name.setText(itemInfo.getName());
             date.setText(itemInfo.getDate());
             amount.setText(String.valueOf(itemInfo.getAmount()));
+//            edate.setText(itemInfo.getEdate());
         }
 
         return convertView;
