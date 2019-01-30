@@ -11,16 +11,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabGravity="fill"
-        app:tabIndicatorColor="#f00"/>
+        app:tabIndicatorColor="#f00" />
 
     <FrameLayout
         android:id="@+id/bottomframe"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tablayout"
         android:layout_above="@+id/bottombar"
+        android:layout_below="@id/tablayout"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="0dp" >
+        android:layout_marginStart="0dp">
 
     </FrameLayout>
 
@@ -28,7 +28,7 @@
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tablayout"/>
+        android:layout_below="@id/tablayout" />
 
     <com.roughike.bottombar.BottomBar
         android:id="@+id/bottombar"

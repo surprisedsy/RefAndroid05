@@ -33,7 +33,6 @@ import java.util.List;
 public class FragmentItemTab3 extends Fragment {
 
     private static final String TAB3_url = "http://192.168.1.31:7777/refrigerator/Android_edate";
-//    private static final String TAB3_url = "http://192.168.1.124:7777/refrigerator/Android_list";
 
     private ListView listView;
     private List<ItemInfo> itemInfoList = new ArrayList<ItemInfo>();
@@ -90,8 +89,6 @@ public class FragmentItemTab3 extends Fragment {
                                         key = (String) iter.next();
                                         keys.add(key);
                                     }
-
-                                    Log.d("frag3 items", "유통기한 정보: " + item);
 
                                     ItemInfo itemInfo = new ItemInfo();
 

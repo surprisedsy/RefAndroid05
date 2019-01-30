@@ -31,6 +31,15 @@ public class ItemListActivity extends AppCompatActivity {
         bottomBarClicked();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        Intent homeIntent = new Intent(ItemListActivity.this, TempActivity.class);
+        startActivity(homeIntent);
+        finish();
+    }
+
     private void bottomBarClicked()
     {
         bottomBar = (BottomBar) findViewById(R.id.bottombar);
@@ -73,7 +82,7 @@ public class ItemListActivity extends AppCompatActivity {
 
         tabLayout.addTab(tabLayout.newTab().setText("재고"));
         tabLayout.addTab(tabLayout.newTab().setText("경과일"));
-        tabLayout.addTab(tabLayout.newTab().setText("유통기한"));
+        tabLayout.addTab(tabLayout.newTab().setText("유통기한 알림"));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());

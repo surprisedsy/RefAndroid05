@@ -20,6 +20,15 @@ public class RecipeActivity extends AppCompatActivity {
         bottomBarClicked();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        Intent homeIntent = new Intent(RecipeActivity.this, TempActivity.class);
+        startActivity(homeIntent);
+        finish();
+    }
+
     private void bottomBarClicked()
     {
         bottomBar = (BottomBar) findViewById(R.id.bottombar3);

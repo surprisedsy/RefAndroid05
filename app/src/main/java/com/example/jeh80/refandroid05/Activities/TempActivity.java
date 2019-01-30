@@ -1,10 +1,15 @@
 package com.example.jeh80.refandroid05.Activities;
 
+import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -20,13 +25,13 @@ import org.json.JSONObject;
 
 public class TempActivity extends AppCompatActivity {
 
-//    private static final String url = "http://192.168.1.124:7777/refrigerator/Android_tem";
     private static final String url = "http://192.168.1.31:7777/refrigerator/Android_tem";
 
     private TextView tempResult;
     private RequestQueue requestQueue;
 
     private Button btn1, btn2, btn3;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +51,8 @@ public class TempActivity extends AppCompatActivity {
         btn1 = (Button) findViewById(R.id.btn_itemlist);
         btn2 = (Button) findViewById(R.id.btn_photo);
         btn3 = (Button) findViewById(R.id.btn_recipe);
+
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
     }
 
     private void tempJsonParse()
@@ -54,11 +61,11 @@ public class TempActivity extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-
                         try {
                             String temp = response.getString("tem");
 
                             tempResult.setText(temp + "℃");
+                            progressBar.setProgress(Integer.valueOf(temp));
 
                         } catch (JSONException e) {
                             e.printStackTrace();

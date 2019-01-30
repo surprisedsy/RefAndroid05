@@ -33,7 +33,6 @@ import java.util.Map;
 
 public class RefListActivity extends AppCompatActivity {
 
-//    private static final String url = "http://192.168.1.124:7777/refrigerator/Android_getData";
     private static final String url = "http://192.168.1.31:7777/refrigerator/Android_getData";
 
     private RequestQueue requestQueue;
