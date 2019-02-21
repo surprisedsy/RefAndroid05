@@ -23,7 +23,6 @@
         <activity android:name=".Activities.TempActivity" />
         <activity android:name=".Activities.ItemListActivity" />
         <activity android:name=".Activities.PhotoActivity" />
-        <activity android:name=".Activities.RecipeActivity"></activity>
     </application>
 
 </manifest>

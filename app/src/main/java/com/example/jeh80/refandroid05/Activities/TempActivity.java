@@ -3,6 +3,7 @@ package com.example.jeh80.refandroid05.Activities;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,8 +31,10 @@ public class TempActivity extends AppCompatActivity {
     private TextView tempResult;
     private RequestQueue requestQueue;
 
-    private Button btn1, btn2, btn3;
+    private Button btn1, btn2;
     private ProgressBar progressBar;
+
+    private String temp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,7 @@ public class TempActivity extends AppCompatActivity {
 
         Init();
         tempJsonParse();
+        tempAlert();
         btnMapping();
     }
 
@@ -50,7 +54,6 @@ public class TempActivity extends AppCompatActivity {
 
         btn1 = (Button) findViewById(R.id.btn_itemlist);
         btn2 = (Button) findViewById(R.id.btn_photo);
-        btn3 = (Button) findViewById(R.id.btn_recipe);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
     }
@@ -62,7 +65,7 @@ public class TempActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            String temp = response.getString("tem");
+                            temp = response.getString("tem");
 
                             tempResult.setText(temp + "℃");
                             progressBar.setProgress(Integer.valueOf(temp));
@@ -81,6 +84,20 @@ public class TempActivity extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
+    private void tempAlert()
+    {
+        if(Integer.valueOf(temp) > 30)
+        {
+            AlertDialog.Builder alertbuiler = new AlertDialog.Builder(TempActivity.this);
+            alertbuiler.setTitle("경고!!!!!")
+                    .setMessage("냉장고 온도가 " + temp + "℃ 로 올랐습니다.\n냉장고를 확인 해주세요.")
+                    .setPositiveButton("확인", null)
+                    .setNeutralButton("취소", null)
+                    .create()
+                    .show();
+        }
+    }
+
     private void btnMapping()
     {
         btn1.setOnClickListener(new View.OnClickListener() {
@@ -97,15 +114,6 @@ public class TempActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent photoIntent = new Intent(TempActivity.this, PhotoActivity.class);
                 startActivity(photoIntent);
-                finish();
-            }
-        });
-
-        btn3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent recipeIntent = new Intent(TempActivity.this, RecipeActivity.class);
-                startActivity(recipeIntent);
                 finish();
             }
         });

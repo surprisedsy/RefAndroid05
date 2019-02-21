@@ -67,6 +67,7 @@ public class FragmentItemTab3 extends Fragment {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+
                         nullTxt = (TextView) getActivity().findViewById(R.id.nullText3);
 
                         try {
@@ -113,23 +114,26 @@ public class FragmentItemTab3 extends Fragment {
                                         itemInfo.setEdate("유통기한 " + String.valueOf(mathDiffDays + 1) + "일 남음");
                                         nullTxt.setText("");
 
-                                    } else if (diffDays < -1) {
-                                        String name = item.getString("name");
-                                        String img = item.getString("img");
-                                        int amount = item.getInt("amount");
-                                        String edate = item.getString("edate");
-
-                                        itemInfo.setDate(edate);
-                                        itemInfo.setName(name);
-                                        itemInfo.setAmount(String.valueOf(amount) + "개");
-                                        itemInfo.setImg(img);
-                                        itemInfo.setEdate("유통기한 " + String.valueOf(mathDiffDays) + "일 지남");
-                                        nullTxt.setText("");
-
                                     } else {
-                                        listView = null;
-                                        nullTxt.setText("없음");
-                                        continue;
+
+                                        if (keys.contains("edate") && diffDays < 0) {
+                                            String name = item.getString("name");
+                                            String img = item.getString("img");
+                                            int amount = item.getInt("amount");
+                                            String edate = item.getString("edate");
+
+                                            itemInfo.setDate(edate);
+                                            itemInfo.setName(name);
+                                            itemInfo.setAmount(String.valueOf(amount) + "개");
+                                            itemInfo.setImg(img);
+                                            itemInfo.setEdate("유통기한 " + String.valueOf(mathDiffDays) + "일 지남");
+                                            nullTxt.setText("");
+
+                                        } else {
+                                            listView = null;
+                                            nullTxt.setText("없음");
+                                            continue;
+                                        }
                                     }
 
                                     itemInfoList.add(itemInfo);

@@ -60,12 +60,6 @@ public class ItemListActivity extends AppCompatActivity {
                     startActivity(photoIntent);
                     finish();
                 }
-                if(tabId == R.id.btm_recipe)
-                {
-                    Intent photoIntent = new Intent(ItemListActivity.this, RecipeActivity.class);
-                    startActivity(photoIntent);
-                    finish();
-                }
             }
         });
     }
