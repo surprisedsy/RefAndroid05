@@ -1,14 +1,11 @@
 package com.example.jeh80.refandroid05.Activities;
 
-import android.animation.ObjectAnimator;
 import android.content.Intent;
-import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -26,7 +23,8 @@ import org.json.JSONObject;
 
 public class TempActivity extends AppCompatActivity {
 
-    private static final String url = "http://192.168.1.31:7777/refrigerator/Android_tem";
+//    private static final String url = "http://192.168.1.31:7777/refrigerator/Android_tem";
+    private static final String url = "http://192.168.1.124:7777/refrigerator/Android_tem";
 
     private TextView tempResult;
     private RequestQueue requestQueue;

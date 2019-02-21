@@ -1,7 +1,5 @@
 package com.example.jeh80.refandroid05.ItemList;
 
-import com.android.volley.toolbox.NetworkImageView;
-
 public class ItemInfo {
 
     String name, date, img, amount;

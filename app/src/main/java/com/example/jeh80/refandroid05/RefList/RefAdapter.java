@@ -2,28 +2,16 @@ package com.example.jeh80.refandroid05.RefList;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.example.jeh80.refandroid05.Activities.RefListActivity;
-import com.example.jeh80.refandroid05.AppController;
 import com.example.jeh80.refandroid05.R;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class RefAdapter extends BaseAdapter {
 

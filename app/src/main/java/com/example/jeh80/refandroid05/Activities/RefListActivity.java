@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -27,13 +26,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 public class RefListActivity extends AppCompatActivity {
 
-    private static final String url = "http://192.168.1.31:7777/refrigerator/Android_getData";
+//    private static final String url = "http://192.168.1.31:7777/refrigerator/Android_getData";
+    private static final String url = "http://192.168.1.124:7777/refrigerator/Android_getData";
 
     private RequestQueue requestQueue;
 

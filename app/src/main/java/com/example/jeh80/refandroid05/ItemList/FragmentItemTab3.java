@@ -32,7 +32,8 @@ import java.util.List;
 
 public class FragmentItemTab3 extends Fragment {
 
-    private static final String TAB3_url = "http://192.168.1.31:7777/refrigerator/Android_edate";
+//    private static final String TAB3_url = "http://192.168.1.31:7777/refrigerator/Android_edate";
+    private static final String TAB3_url = "http://192.168.1.124:7777/refrigerator/Android_edate";
 
     private ListView listView;
     private List<ItemInfo> itemInfoList = new ArrayList<ItemInfo>();
